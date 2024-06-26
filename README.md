@@ -29,7 +29,7 @@
 
 ### Página de Login
 
-<img src="./src/assets/images/Login.png" alt="preview" width="400px">
+<img src="./src/assets/images/Login.jpg" alt="preview" width="400px">
 
 ### Página Home
 
