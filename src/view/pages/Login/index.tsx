@@ -5,7 +5,7 @@ import { useLoginController } from "./useLoginController";
 
 export function Login() {
 
-  const { handleSubmit, register, errors } = useLoginController();
+  const { handleSubmit, register, errors, isPending } = useLoginController();
 
   return (
     <>
@@ -42,7 +42,7 @@ export function Login() {
           error={errors.password?.message}
           />
 
-        <Button className="mt-2" type="submit">Entrar</Button>
+        <Button className="mt-2" type="submit" isPending={isPending}>Entrar</Button>
 
       </form>
     </>

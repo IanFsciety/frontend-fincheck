@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
-import { useRegisterController } from "./useRegistercontroller";
+import { useRegisterController } from "./useRegisterController";
 
 export function Register() {
 
-  const { errors, handleSubmit, register} = useRegisterController();
+  const { errors, handleSubmit, register, isPending} = useRegisterController();
 
   return (
     <>
@@ -36,7 +36,7 @@ export function Register() {
           type="password" placeholder="Senha" error={errors.password?.message} {...register('password')}
         />
 
-        <Button className="mt-2" type="submit">Criar Conta</Button>
+        <Button className="mt-2" type="submit" isPending={isPending}>Criar Conta</Button>
 
       </form>
     </>
