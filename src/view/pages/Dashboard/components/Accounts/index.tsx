@@ -3,7 +3,7 @@ import 'swiper/css';
 
 
 import { AccountCard } from "./AccountCard";
-import { AccountsSliderNavigation } from "./AccountsSliderNavigation";
+import { AccountsSliderNavigation } from "./SliderNavigation";
 import { EyeIcon } from '../../../../components/icons/EyeIcon';
 import { useAccountsController } from './useAccountsController';
 
