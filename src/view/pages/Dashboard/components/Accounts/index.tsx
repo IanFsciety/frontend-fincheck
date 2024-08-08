@@ -16,7 +16,7 @@ export function Accounts() {
   return (
     <div className="bg-teal-900 rounded-2xl w-full h-full px-4 py-8 md:p-10 flex flex-col">
 
-      <div className="">
+      <div>
         <span className="text-white tracking-[-0.5px] block">Saldo Total</span>
 
         <div className="flex items-center gap-2">
