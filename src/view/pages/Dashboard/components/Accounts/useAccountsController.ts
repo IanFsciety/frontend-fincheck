@@ -12,6 +12,12 @@ export  function useAccountsController() {
   });
 
   return {
-    sliderState, setSliderState, windowWidth, areValuesVisible, toggleValueVisibility
+    sliderState,
+    setSliderState,
+    windowWidth,
+    areValuesVisible,
+    toggleValueVisibility,
+    isLoading: false,
+    accounts: [],
   }
 }
