@@ -11,6 +11,7 @@ import { cn } from "../../../../../app/utils/cn";
 import { useTransactionsController } from "./useTransactionsController";
 import { Spinner } from "../../../../components/Spinner";
 import emptyLogo from "../../../../../assets/images/empty-state.svg"
+import { TransactionTypeDropdown } from "./TransactionTypeDropdown";
 
 export function Transactions() {
   const { areValuesVisible, transactions, isInitialLoading, isLoading } = useTransactionsController();
@@ -30,11 +31,8 @@ export function Transactions() {
         <>
           <header>
             <div className="flex items-center justify-between">
-              <button className="flex items-center gap-2 ">
-                <TransactionsIcon />
-                <span className="text-sm text-gray-800 tracking-[-0.5px] font-medium">Transações</span>
-                <ChevronDownIcon className="text-gray-900" />
-              </button>
+
+              <TransactionTypeDropdown />
 
               <button>
                 <FilterIcon />
