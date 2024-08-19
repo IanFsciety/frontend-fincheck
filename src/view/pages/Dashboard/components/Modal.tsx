@@ -1,4 +1,4 @@
-import * as Dialog from '@radix-ui/react-dialog';
+import * as RdxDialog from '@radix-ui/react-dialog';
 import { cn } from '../../../../app/utils/cn';
 import { Cross2Icon } from '@radix-ui/react-icons';
 
@@ -16,16 +16,16 @@ interface ModalProps {
 
 export function Modal({ open, title, rightAction, onClose, children }: ModalProps)  {
   return (
-    <Dialog.Root open={open} onOpenChange={onClose}>
-      <Dialog.Portal>
-        <Dialog.Overlay className={
+    <RdxDialog.Root open={open} onOpenChange={onClose}>
+      <RdxDialog.Portal>
+        <RdxDialog.Overlay className={
           cn(
             'fixed inset-0 bg-black/70 backdrop-blur-sm z-50',
             'data-[state=open]:animate-overlay-show'
           )
         } />
 
-        <Dialog.Content className={
+        <RdxDialog.Content className={
           cn(
             'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 space-y-10 bg-white rounded-2xl z-[51] shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)] w-full max-w-[400px] outline-none',
             'data-[state=open]:animate-content-show'
@@ -36,11 +36,11 @@ export function Modal({ open, title, rightAction, onClose, children }: ModalProp
               <Cross2Icon className="w-6 h-6"/>
             </button>
 
-            <Dialog.Title>
-              <Dialog.Description>
+            <RdxDialog.Title>
+              <RdxDialog.Description>
                 <span className="text-lg tracking-[-1px] font-bold">{title}</span>
-              </Dialog.Description>
-            </Dialog.Title>
+              </RdxDialog.Description>
+            </RdxDialog.Title>
 
             <div className="w-12 h-12 flex items-center justify-center">{rightAction}</div>
           </header>
@@ -48,9 +48,9 @@ export function Modal({ open, title, rightAction, onClose, children }: ModalProp
           <div>
             {children}
           </div>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+        </RdxDialog.Content>
+      </RdxDialog.Portal>
+    </RdxDialog.Root>
   )
 }
 

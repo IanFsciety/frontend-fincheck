@@ -20,7 +20,8 @@ export function Accounts() {
     areValuesVisible,
     toggleValueVisibility,
     isLoading,
-    accounts
+    accounts,
+    openNewAccountModal
   } = useAccountsController();
 
   return (
@@ -59,7 +60,7 @@ export function Accounts() {
                   <strong className="text-white tracking-[-1px] text-lg font-bold">Minhas Contas</strong>
                 </div>
 
-                <button className="mt-4 h-52 border-2 border-teal-600 rounded-2xl border-dashed flex flex-col items-center justify-center gap-4 text-white">
+                <button className="mt-4 h-52 border-2 border-teal-600 rounded-2xl border-dashed flex flex-col items-center justify-center gap-4 text-white hover:bg-teal-950/5 transition-colors" onClick={openNewAccountModal}>
                   <div className=" flex items-center justify-center border-2 border-white rounded-full h-11 w-11 border-dotted">
                     <PlusIcon className='w-6 h-6'/>
                   </div>
