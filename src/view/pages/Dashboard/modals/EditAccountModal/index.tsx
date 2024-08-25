@@ -16,8 +16,9 @@ export function EditAccountModal() {
     handleSubmit,
     control,
     isPending,
-
   } = useEditAccountModalController()
+
+
 
   return (
     <Modal
@@ -101,7 +102,7 @@ export function EditAccountModal() {
 
 
           <Button type="submit" className="w-full mt-6" isPending={isPending}>
-            Criar
+            Salvar
           </Button>
         </div>
 

@@ -8,7 +8,10 @@ import { currencyStringToNumber } from "../../../../../app/utils/currencyStringT
 import toast from "react-hot-toast";
 
 const schema = z.object({
-  initialBalance: z.string().nonempty('Saldo inicial é obrigatório'),
+  initialBalance: z.union([
+    z.string().nonempty('Saldo inicial é obrigatório'),
+    z.number(),
+  ]),
   name: z.string().nonempty('Nome da conta é obrigatorio'),
   type: z.enum(['CHECKING', 'INVESTMENT', 'CASH']),
   color: z.string().nonempty('Cor é obrigatória'),
@@ -17,7 +20,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 
 export function useEditAccountModalController()  {
-  const { isEditAccountModalOpen, closeEditAccountModal } = useDashboard()
+  const { isEditAccountModalOpen, closeEditAccountModal, accountBeingEdited, } = useDashboard()
+
 
   const {
     register,
@@ -28,6 +32,12 @@ export function useEditAccountModalController()  {
 
   } = useForm<FormData>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      color: accountBeingEdited?.color,
+      name: accountBeingEdited?.name,
+      type: accountBeingEdited?.type,
+      initialBalance: accountBeingEdited?.initialBalance,
+    },
   });
 
   const queryClient = useQueryClient();
@@ -44,11 +54,11 @@ export function useEditAccountModalController()  {
       });
 
       queryClient.invalidateQueries({queryKey: ['bankAccounts']})
-      toast.success('Conta cadastrada com sucesso');
+      toast.success('Conta atualizada com sucesso');
       closeEditAccountModal();
       reset();
     } catch {
-      toast.error('Erro ao cadastrar a conta')
+      toast.error('Erro ao atualizar a conta')
     }
   });
 
@@ -59,6 +69,6 @@ export function useEditAccountModalController()  {
     errors,
     handleSubmit,
     control,
-    isPending
+    isPending,
   }
 }
