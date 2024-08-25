@@ -1,24 +1,31 @@
 import { createContext, useCallback, useState } from "react";
+import { BankAccount } from "../../../../../app/entities/BankAccount";
 
 interface DashboardContextValue {
   areValuesVisible: boolean;
   isNewAccountModalOpen: boolean;
   isNewTransactionModalOpen: boolean;
+  isEditAccountModalOpen: boolean;
   newTransactionType: 'INCOME' | 'EXPENSE' | null;
+  accountBeingEdited: null | BankAccount
   toggleValueVisibility(): void;
   openNewAccountModal(): void;
   closeNewAccountModal(): void;
   openNewTransactionModal(type: 'INCOME' | 'EXPENSE'): void;
   closeNewTransactionModal(): void;
+  openEditAccountModal(bankAccount: BankAccount): void;
+  closeEditAccountModal(): void;
 }
 
 export const DashboardContext = createContext({} as DashboardContextValue);
 
 export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [areValuesVisible, setAreValuesVisible] = useState(true);
-  const [isNewAccountModalOpen, setIsNewAccountModalOpen] = useState(true);
+  const [isNewAccountModalOpen, setIsNewAccountModalOpen] = useState(false);
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
   const [newTransactionType, setNewTransactionType] = useState<'INCOME' | 'EXPENSE' | null>(null);
+  const [isEditAccountModalOpen, setIsEditAccountModalOpen] = useState(false);
+  const [accountBeingEdited, setAccountBeingEdited] = useState<null | BankAccount>(null);
 
   const toggleValueVisibility = useCallback(() => {
     setAreValuesVisible(prevState => !prevState)
@@ -30,6 +37,16 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
 
   const closeNewAccountModal = useCallback(() => {
     setIsNewAccountModalOpen(false)
+  }, []);
+
+  const openEditAccountModal = useCallback((bankAccount: BankAccount) => {
+    setAccountBeingEdited(bankAccount)
+    setIsEditAccountModalOpen(true)
+  }, []);
+
+  const closeEditAccountModal = useCallback(() => {
+    setAccountBeingEdited(null)
+    setIsEditAccountModalOpen(false)
   }, []);
 
   const openNewTransactionModal = useCallback((type: 'INCOME' | 'EXPENSE') => {
@@ -52,7 +69,11 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
       isNewTransactionModalOpen,
       openNewTransactionModal,
       closeNewTransactionModal,
-      newTransactionType
+      newTransactionType,
+      isEditAccountModalOpen,
+      accountBeingEdited,
+      openEditAccountModal,
+      closeEditAccountModal
     }}>
       {children}
     </DashboardContext.Provider>
