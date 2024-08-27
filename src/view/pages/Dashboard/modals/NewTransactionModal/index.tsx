@@ -7,7 +7,7 @@ import { Select } from "../../../../components/Select";
 import { Modal } from "../../components/Modal";
 import { useNewTransactionModalController } from "./useNewTransactionModalController";
 
-export function EditTransactionModal() {
+export function NewTransactionModal() {
   const {
     isNewTransactionModalOpen,
     closeNewTransactionModal,
