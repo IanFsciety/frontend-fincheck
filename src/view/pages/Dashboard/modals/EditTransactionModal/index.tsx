@@ -1,5 +1,6 @@
 import { Controller } from "react-hook-form";
 import { Button } from "../../../../components/Button";
+import { ColorsDropDownInput } from "../../../../components/ColorsDropDownInput";
 import { DatePickerInput } from "../../../../components/DatePickerInput";
 import { Input } from "../../../../components/Input";
 import { InputCurrency } from "../../../../components/InputCurrency";
@@ -7,7 +8,7 @@ import { Select } from "../../../../components/Select";
 import { Modal } from "../../components/Modal";
 import { useNewTransactionModalController } from "./useNewTransactionModalController";
 
-export function EditTransactionModal() {
+export function NewTransactionModal() {
   const {
     isNewTransactionModalOpen,
     closeNewTransactionModal,
