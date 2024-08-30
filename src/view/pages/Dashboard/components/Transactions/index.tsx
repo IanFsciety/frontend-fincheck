@@ -108,7 +108,6 @@ export function Transactions() {
                   transaction={transactionBeingEdited}
                 />
                 )}
-
                 {transactions.map(transaction => (
                   <div
                     key={transaction.id}

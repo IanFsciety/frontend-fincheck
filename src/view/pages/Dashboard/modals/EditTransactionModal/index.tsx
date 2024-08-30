@@ -6,13 +6,17 @@ import { Input } from "../../../../components/Input";
 import { InputCurrency } from "../../../../components/InputCurrency";
 import { Select } from "../../../../components/Select";
 import { Modal } from "../../components/Modal";
-import { useNewTransactionModalController } from "./useNewTransactionModalController";
+import { useEditTransactionModalController } from "./useEditTransactionModalController";
+import { Transaction } from "../../../../../app/entities/Transaction";
 
-export function NewTransactionModal() {
+interface EditTransactionModalProps {
+  open: boolean;
+  onClose(): void;
+  transaction: Transaction | null;
+}
+
+export function EditTransactionModal({ transaction, onClose, open }: EditTransactionModalProps) {
   const {
-    isNewTransactionModalOpen,
-    closeNewTransactionModal,
-    newTransactionType,
     register,
     errors,
     handleSubmit,
@@ -20,15 +24,15 @@ export function NewTransactionModal() {
     accounts,
     categories,
     isPending
-  } = useNewTransactionModalController();
+  } = useEditTransactionModalController(transaction, onClose);
 
-  const isExpense = newTransactionType === 'EXPENSE';
+  const isExpense = transaction?.type === 'EXPENSE';
 
   return (
     <Modal
-      title={isExpense ? 'Nova Despesa' : 'Nova Receita'}
-      open={isNewTransactionModalOpen}
-      onClose={closeNewTransactionModal}
+      title={isExpense ? 'Editar Despesa' : 'Editar Receita'}
+      open={open}
+      onClose={onClose}
     >
 
       <form onSubmit={handleSubmit}>
@@ -110,7 +114,7 @@ export function NewTransactionModal() {
 
 
           <Button type="submit" className="w-full mt-6" isPending={isPending}>
-            Criar
+            Salvar
           </Button>
 
         </div>
