@@ -8,6 +8,8 @@ import { Select } from "../../../../components/Select";
 import { Modal } from "../../components/Modal";
 import { useEditTransactionModalController } from "./useEditTransactionModalController";
 import { Transaction } from "../../../../../app/entities/Transaction";
+import { ConfirmDeleteModal } from "../../../../components/ConfirmDeleteModal";
+import { TrashIcon } from "@radix-ui/react-icons";
 
 interface EditTransactionModalProps {
   open: boolean;
@@ -23,16 +25,36 @@ export function EditTransactionModal({ transaction, onClose, open }: EditTransac
     control,
     accounts,
     categories,
-    isPending
+    isPending,
+    isDeleteModalOpen,
+    isPendingDelete,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
+    handleDeleteTransaction
   } = useEditTransactionModalController(transaction, onClose);
 
   const isExpense = transaction?.type === 'EXPENSE';
+
+  if (isDeleteModalOpen) {
+    return <ConfirmDeleteModal
+    isPendingDelete={isPendingDelete}
+    title={`Tem certeza que  deseja excluir esta ${isExpense ? 'despesa' : 'receita'}?`}
+    onClose={handleCloseDeleteModal}
+    onConfirm={handleDeleteTransaction}
+  />
+  }
 
   return (
     <Modal
       title={isExpense ? 'Editar Despesa' : 'Editar Receita'}
       open={open}
       onClose={onClose}
+      rightAction={
+        <button onClick={handleOpenDeleteModal}>
+          <TrashIcon className="w-6 h-6 text-red-900"/>
+        </button>
+      }
+
     >
 
       <form onSubmit={handleSubmit}>

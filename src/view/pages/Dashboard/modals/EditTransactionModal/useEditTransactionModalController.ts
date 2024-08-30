@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {useMutation, useQueryClient } from "@tanstack/react-query";
 import { useBankAccounts } from "../../../../../app/hooks/useBankAccounts";
 import { useCategories } from "../../../../../app/hooks/useCategories";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { transactionsService } from "../../../../../app/services/transactionsService";
 import toast from "react-hot-toast";
 import { currencyStringToNumber } from "../../../../../app/utils/currencyStringToNumber";
@@ -49,13 +49,19 @@ export function useEditTransactionModalController(
   const queryClient = useQueryClient()
   const { accounts } = useBankAccounts();
   const { categories: categoriesList } = useCategories();
-  const { isPending, mutateAsync } = useMutation({
+
+  const { isPending, mutateAsync: updateTransaction } = useMutation({
     mutationFn: transactionsService.update
-  })
+  });
+  const { isPending: isPendingDelete, mutateAsync: removeTransaction } = useMutation({
+    mutationFn: transactionsService.remove
+  });
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleSubmit = hookFormSubmit(async data => {
     try {
-      await mutateAsync({
+      await updateTransaction({
         ...data,
         id: transaction!.id,
         type: transaction!.type,
@@ -80,9 +86,31 @@ export function useEditTransactionModalController(
     }
   });
 
+  async function handleDeleteTransaction() {
+    try {
+      await removeTransaction(transaction!.id,);
+
+      queryClient.invalidateQueries({queryKey: ['transactions']})
+      toast.success(`${transaction?.type === 'EXPENSE' ? 'Despesa' : 'Receita' } deletada com sucesso`);
+      onClose();
+    } catch {
+      toast.error(`Erro ao remover a ${transaction?.type === 'EXPENSE' ? 'despesa' : 'receita' }`)
+    }
+  }
+
   const categories = useMemo(() => {
     return categoriesList.filter(category => category.type === transaction?.type);
   }, [categoriesList, transaction]);
+
+  function handleOpenDeleteModal() {
+    setIsDeleteModalOpen(true);
+  }
+
+  function handleCloseDeleteModal() {
+    setIsDeleteModalOpen(false);
+  }
+
+
 
   return {
     register,
@@ -92,5 +120,10 @@ export function useEditTransactionModalController(
     accounts,
     categories,
     isPending: isPending,
+    isDeleteModalOpen,
+    isPendingDelete: isPendingDelete,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
+    handleDeleteTransaction
   }
 }
