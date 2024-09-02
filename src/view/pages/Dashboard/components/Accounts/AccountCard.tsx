@@ -1,4 +1,3 @@
-import { id } from "date-fns/locale";
 import { BankAccount } from "../../../../../app/entities/BankAccount";
 import { cn } from "../../../../../app/utils/cn";
 import { formatCurrency } from "../../../../../app/utils/formatCurrency";
