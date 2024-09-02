@@ -1,5 +1,4 @@
 import { httpClient } from "../httpClient";
-import { CreateTransactionParams } from "./create";
 
 export interface updateTransactionParams {
   id: string;

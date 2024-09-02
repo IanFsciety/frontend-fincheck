@@ -1,6 +1,5 @@
 import { Controller } from "react-hook-form";
 import { Button } from "../../../../components/Button";
-import { ColorsDropDownInput } from "../../../../components/ColorsDropDownInput";
 import { DatePickerInput } from "../../../../components/DatePickerInput";
 import { Input } from "../../../../components/Input";
 import { InputCurrency } from "../../../../components/InputCurrency";
