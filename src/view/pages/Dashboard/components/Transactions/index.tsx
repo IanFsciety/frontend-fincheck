@@ -111,7 +111,7 @@ export function Transactions() {
                 {transactions.map(transaction => (
                   <div
                     key={transaction.id}
-                    className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
+                    className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4 overflow-y-hidden"
                     role="button"
                     onClick={() => handleOpenEditModal(transaction)}
                   >
@@ -130,7 +130,7 @@ export function Transactions() {
                     transaction.type === 'EXPENSE'
                     ? 'text-red-800 tracking-[-0.5px] font-medium'
                     : 'text-green-800 tracking-[-0.5px] font-medium',
-                    !areValuesVisible && 'blur-sm'
+                    !areValuesVisible && 'blur-sm',
                   )}>{transaction.type === 'EXPENSE' ? '-' : '+'} {formatCurrency(transaction.value)}</span>
                 </div>
                 ))}

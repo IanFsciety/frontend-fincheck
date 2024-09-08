@@ -27,7 +27,7 @@ export function AccountCard({ data }: AccountCardProps) {
         <span className="text-gray-800 font-medium tracking-[0.5px] mt-4 block">{name}</span>
       </div>
 
-      <div>
+      <div className="overflow-y-hidden overflow-x-hidden w-full">
         <span className={cn(
           'text-gray-800 font-medium tracking-[0.5px] block',
           !areValuesVisible && 'blur-sm',

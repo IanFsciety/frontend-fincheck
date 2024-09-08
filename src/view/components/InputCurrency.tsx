@@ -12,6 +12,8 @@ export function InputCurrency({ error, value, onChange }: InputCurrencyProps) {
   return (
     <div>
       <NumericFormat
+        allowLeadingZeros={false}
+        maxLength={20}
         thousandSeparator="."
         decimalSeparator=","
         value={value}

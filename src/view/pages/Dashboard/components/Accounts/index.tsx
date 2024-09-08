@@ -35,7 +35,7 @@ export function Accounts() {
 
       {!isLoading && (
         <>
-          <div>
+          <div className="overflow-y-hidden">
             <span className="text-white tracking-[-0.5px] block">Saldo Total</span>
 
             <div className="flex items-center gap-2">
