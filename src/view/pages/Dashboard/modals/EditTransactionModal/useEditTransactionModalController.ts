@@ -33,6 +33,7 @@ export function useEditTransactionModalController(
     handleSubmit: hookFormSubmit,
     formState: { errors },
     control,
+    reset,
 
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -75,6 +76,7 @@ export function useEditTransactionModalController(
           ? 'Despesa editada com sucesso!'
           : 'Receita editada com sucesso!'
       );
+      reset();
       onClose();
     } catch {
       toast.error(
@@ -83,13 +85,15 @@ export function useEditTransactionModalController(
           : 'Erro ao editar a receita!'
       );
     }
+
   });
 
   async function handleDeleteTransaction() {
     try {
       await removeTransaction(transaction!.id,);
 
-      queryClient.invalidateQueries({queryKey: ['transactions']})
+      queryClient.invalidateQueries({queryKey: ['transactions']});
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] });
       toast.success(`${transaction?.type === 'EXPENSE' ? 'Despesa' : 'Receita' } deletada com sucesso`);
       onClose();
     } catch {

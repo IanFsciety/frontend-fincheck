@@ -41,11 +41,11 @@ export function NewTransactionModal() {
               control={control}
               name="value"
               defaultValue="0"
-              render={({ field: { onChange, value } }) => (
+              render={({ field: { onChange } }) => (
                 <InputCurrency
                   error={errors.value?.message}
                   onChange={onChange}
-                  value={value}
+                  value={0}
                 />
               )}
             />
@@ -64,11 +64,10 @@ export function NewTransactionModal() {
             control={control}
             name="categoryId"
             defaultValue=""
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange } }) => (
               <Select
                 placeholder="Categoria"
                 onChange={onChange}
-                value={value}
                 error={errors.categoryId?.message}
                 options={categories.map(category => ({
                   value: category.id,
@@ -83,11 +82,10 @@ export function NewTransactionModal() {
             control={control}
             name="bankAccountId"
             defaultValue=""
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange } }) => (
               <Select
                 placeholder={isExpense ? 'Pagar Com' : 'Receber Com'}
                 onChange={onChange}
-                value={value}
                 error={errors.bankAccountId?.message}
                 options={accounts.map(account => ({
                   value: account.id,
@@ -101,8 +99,8 @@ export function NewTransactionModal() {
             control={control}
             name="date"
             defaultValue={new Date()}
-            render={({ field: { value, onChange } }) => (
-              <DatePickerInput error={ errors.date?.message } value={value} onChange={onChange}/>
+            render={({ field: { onChange } }) => (
+              <DatePickerInput error={ errors.date?.message } onChange={onChange}/>
             )}
           />
 

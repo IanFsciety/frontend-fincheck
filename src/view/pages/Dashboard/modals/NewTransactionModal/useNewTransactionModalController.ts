@@ -63,8 +63,8 @@ export function useNewTransactionModalController() {
           ? 'Despesa cadastrada com sucesso!'
           : 'Receita cadastrada com sucesso!'
       );
-      closeNewTransactionModal();
       reset();
+      closeNewTransactionModal();
     } catch {
       toast.error(
         newTransactionType === 'EXPENSE'
