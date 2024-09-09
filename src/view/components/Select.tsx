@@ -1,7 +1,7 @@
-import * as RdxSelect from '@radix-ui/react-select';
 import { ChevronDownIcon, ChevronUpIcon, CrossCircledIcon } from '@radix-ui/react-icons';
-import { cn } from '../../app/utils/cn';
+import * as RdxSelect from '@radix-ui/react-select';
 import { useState } from 'react';
+import { cn } from '../../app/utils/cn';
 
 
 interface SelectProps {

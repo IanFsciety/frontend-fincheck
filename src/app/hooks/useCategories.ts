@@ -3,7 +3,7 @@ import { categoriesService } from "../services/categoriesService";
 
 export function useCategories() {
   const { data, isFetching} = useQuery({
-    queryKey: ['Categories'],
+    queryKey: ['categories'],
     queryFn: categoriesService.getAll,
   });
 

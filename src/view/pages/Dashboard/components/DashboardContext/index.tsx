@@ -6,11 +6,16 @@ interface DashboardContextValue {
   isNewAccountModalOpen: boolean;
   isNewTransactionModalOpen: boolean;
   isEditAccountModalOpen: boolean;
+  isNewCategoryModalOpen: boolean;
   newTransactionType: 'INCOME' | 'EXPENSE' | null;
   accountBeingEdited: null | BankAccount
   toggleValueVisibility(): void;
   openNewAccountModal(): void;
   closeNewAccountModal(): void;
+  openNewAccountModal(): void;
+  closeNewAccountModal(): void;
+  openNewCategoryModal(): void;
+  closeNewCategoryModal(): void;
   openNewTransactionModal(type: 'INCOME' | 'EXPENSE'): void;
   closeNewTransactionModal(): void;
   openEditAccountModal(bankAccount: BankAccount): void;
@@ -23,6 +28,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [areValuesVisible, setAreValuesVisible] = useState(true);
   const [isNewAccountModalOpen, setIsNewAccountModalOpen] = useState(false);
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
+  const [isNewCategoryModalOpen, setIsNewCategoryModalOpen] = useState(false);
   const [newTransactionType, setNewTransactionType] = useState<'INCOME' | 'EXPENSE' | null>(null);
   const [isEditAccountModalOpen, setIsEditAccountModalOpen] = useState(false);
   const [accountBeingEdited, setAccountBeingEdited] = useState<null | BankAccount>(null);
@@ -37,6 +43,14 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
 
   const closeNewAccountModal = useCallback(() => {
     setIsNewAccountModalOpen(false)
+  }, []);
+
+  const openNewCategoryModal = useCallback(() => {
+    setIsNewCategoryModalOpen(true)
+  }, []);
+
+  const closeNewCategoryModal = useCallback(() => {
+    setIsNewCategoryModalOpen(false)
   }, []);
 
   const openEditAccountModal = useCallback((bankAccount: BankAccount) => {
@@ -73,7 +87,10 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
       isEditAccountModalOpen,
       accountBeingEdited,
       openEditAccountModal,
-      closeEditAccountModal
+      closeEditAccountModal,
+      isNewCategoryModalOpen,
+      openNewCategoryModal,
+      closeNewCategoryModal
     }}>
       {children}
     </DashboardContext.Provider>

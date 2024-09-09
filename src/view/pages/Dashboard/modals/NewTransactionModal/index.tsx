@@ -1,10 +1,13 @@
 import { Controller } from "react-hook-form";
+import { useAuth } from "../../../../../app/hooks/useAuth";
 import { Button } from "../../../../components/Button";
 import { DatePickerInput } from "../../../../components/DatePickerInput";
 import { Input } from "../../../../components/Input";
 import { InputCurrency } from "../../../../components/InputCurrency";
 import { Select } from "../../../../components/Select";
+import { useDashboard } from "../../components/DashboardContext/useDashboard";
 import { Modal } from "../../components/Modal";
+import { NewCategoryModal } from "../NewCategoryModal";
 import { useNewTransactionModalController } from "./useNewTransactionModalController";
 
 export function NewTransactionModal() {
@@ -22,6 +25,14 @@ export function NewTransactionModal() {
   } = useNewTransactionModalController();
 
   const isExpense = newTransactionType === 'EXPENSE';
+
+  const { user } = useAuth()
+  const isUserPremium = user?.isPremium
+  const { openNewCategoryModal, isNewCategoryModalOpen } = useDashboard()
+
+  if (isNewCategoryModalOpen) {
+    return <NewCategoryModal />
+  }
 
   return (
     <Modal
@@ -60,23 +71,40 @@ export function NewTransactionModal() {
             {...register('name')}
           />
 
-          <Controller
-            control={control}
-            name="categoryId"
-            defaultValue=""
-            render={({ field: { onChange } }) => (
-              <Select
-                placeholder="Categoria"
-                onChange={onChange}
-                error={errors.categoryId?.message}
-                options={categories.map(category => ({
-                  value: category.id,
-                  label: category.name
+          <div>
+            <Controller
+              control={control}
+              name="categoryId"
+              defaultValue=""
+              render={({ field: { onChange } }) => (
+                <Select
+                  placeholder="Categoria"
+                  onChange={onChange}
+                  error={errors.categoryId?.message}
+                  options={categories.map(category => ({
+                    value: category.id,
+                    label: category.name
 
-                }))}
+                  }))}
+                  />
+                )}
               />
-            )}
-          />
+              <div className="flex items-center justify-between mt-2">
+
+                <button
+                  type="button"
+                  disabled={!isUserPremium}
+                  onClick={openNewCategoryModal}
+                  className="text-sm w-1/2 px-1 text-teal-900 hover:text-teal-700 disabled:text-gray-600 disabled:cursor-not-allowed"
+                >
+                  Crie uma nova Categoria
+                </button>
+                {!isUserPremium && (
+                  <button type="button" className="text-sm text-teal-900 hover:text-teal-700">Torne-se Premium</button>
+                )}
+
+              </div>
+          </div>
 
           <Controller
             control={control}

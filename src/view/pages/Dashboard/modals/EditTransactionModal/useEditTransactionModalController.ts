@@ -1,14 +1,14 @@
-import { z } from "zod";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { z } from "zod";
+import { Transaction } from "../../../../../app/entities/Transaction";
 import { useBankAccounts } from "../../../../../app/hooks/useBankAccounts";
 import { useCategories } from "../../../../../app/hooks/useCategories";
-import { useMemo, useState } from "react";
 import { transactionsService } from "../../../../../app/services/transactionsService";
-import toast from "react-hot-toast";
 import { currencyStringToNumber } from "../../../../../app/utils/currencyStringToNumber";
-import { Transaction } from "../../../../../app/entities/Transaction";
 
 const schema = z.object({
   value: z.union([
@@ -127,6 +127,6 @@ export function useEditTransactionModalController(
     isPendingDelete: isPendingDelete,
     handleOpenDeleteModal,
     handleCloseDeleteModal,
-    handleDeleteTransaction
+    handleDeleteTransaction,
   }
 }

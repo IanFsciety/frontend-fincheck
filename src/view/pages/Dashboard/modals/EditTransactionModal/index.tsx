@@ -1,14 +1,16 @@
+import { TrashIcon } from "@radix-ui/react-icons";
 import { Controller } from "react-hook-form";
+import { Transaction } from "../../../../../app/entities/Transaction";
+import { useAuth } from "../../../../../app/hooks/useAuth";
 import { Button } from "../../../../components/Button";
+import { ConfirmDeleteModal } from "../../../../components/ConfirmDeleteModal";
 import { DatePickerInput } from "../../../../components/DatePickerInput";
 import { Input } from "../../../../components/Input";
 import { InputCurrency } from "../../../../components/InputCurrency";
 import { Select } from "../../../../components/Select";
+import { useDashboard } from "../../components/DashboardContext/useDashboard";
 import { Modal } from "../../components/Modal";
 import { useEditTransactionModalController } from "./useEditTransactionModalController";
-import { Transaction } from "../../../../../app/entities/Transaction";
-import { ConfirmDeleteModal } from "../../../../components/ConfirmDeleteModal";
-import { TrashIcon } from "@radix-ui/react-icons";
 
 interface EditTransactionModalProps {
   open: boolean;
@@ -34,14 +36,19 @@ export function EditTransactionModal({ transaction, onClose, open }: EditTransac
 
   const isExpense = transaction?.type === 'EXPENSE';
 
+  const { user } = useAuth()
+  const isUserPremium = user?.isPremium
+  const { openNewCategoryModal, isNewCategoryModalOpen } = useDashboard()
+
   if (isDeleteModalOpen) {
     return <ConfirmDeleteModal
-    isPendingDelete={isPendingDelete}
-    title={`Tem certeza que  deseja excluir esta ${isExpense ? 'despesa' : 'receita'}?`}
-    onClose={handleCloseDeleteModal}
-    onConfirm={handleDeleteTransaction}
-  />
+      isPendingDelete={isPendingDelete}
+      title={`Tem certeza que  deseja excluir esta ${isExpense ? 'despesa' : 'receita'}?`}
+      onClose={handleCloseDeleteModal}
+      onConfirm={handleDeleteTransaction}
+    />
   }
+
 
   return (
     <Modal
@@ -50,7 +57,7 @@ export function EditTransactionModal({ transaction, onClose, open }: EditTransac
       onClose={onClose}
       rightAction={
         <button onClick={handleOpenDeleteModal}>
-          <TrashIcon className="w-6 h-6 text-red-900"/>
+          <TrashIcon className="w-6 h-6 text-red-900" />
         </button>
       }
 
@@ -128,7 +135,7 @@ export function EditTransactionModal({ transaction, onClose, open }: EditTransac
             name="date"
             defaultValue={new Date()}
             render={({ field: { value, onChange } }) => (
-              <DatePickerInput error={ errors.date?.message } value={value} onChange={onChange}/>
+              <DatePickerInput error={errors.date?.message} value={value} onChange={onChange} />
             )}
           />
 
