@@ -8,6 +8,7 @@ import { Select } from "../../../../components/Select";
 import { useDashboard } from "../../components/DashboardContext/useDashboard";
 import { Modal } from "../../components/Modal";
 import { NewCategoryModal } from "../NewCategoryModal";
+import { PremiumPlanModal } from "../PremiumPlanModal";
 import { useNewTransactionModalController } from "./useNewTransactionModalController";
 
 export function NewTransactionModal() {
@@ -28,10 +29,14 @@ export function NewTransactionModal() {
 
   const { user } = useAuth()
   const isUserPremium = user?.isPremium
-  const { openNewCategoryModal, isNewCategoryModalOpen } = useDashboard()
+  const { openNewCategoryModal, isNewCategoryModalOpen, openPremiumPlanModal, isPremiumPlanModalOpen } = useDashboard()
 
   if (isNewCategoryModalOpen) {
     return <NewCategoryModal />
+  }
+
+  if (isPremiumPlanModalOpen) {
+    return <PremiumPlanModal />
   }
 
   return (
@@ -100,7 +105,7 @@ export function NewTransactionModal() {
                   Crie uma nova Categoria
                 </button>
                 {!isUserPremium && (
-                  <button type="button" className="text-sm text-teal-900 hover:text-teal-700">Torne-se Premium</button>
+                  <button onClick={openPremiumPlanModal} type="button" className="text-sm text-teal-900 hover:text-teal-700">Torne-se Premium</button>
                 )}
 
               </div>
