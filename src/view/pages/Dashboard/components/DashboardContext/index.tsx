@@ -7,6 +7,7 @@ interface DashboardContextValue {
   isNewTransactionModalOpen: boolean;
   isEditAccountModalOpen: boolean;
   isNewCategoryModalOpen: boolean;
+  isPremiumPlanModalOpen: boolean;
   newTransactionType: 'INCOME' | 'EXPENSE' | null;
   accountBeingEdited: null | BankAccount
   toggleValueVisibility(): void;
@@ -16,6 +17,8 @@ interface DashboardContextValue {
   closeNewAccountModal(): void;
   openNewCategoryModal(): void;
   closeNewCategoryModal(): void;
+  openPremiumPlanModal(): void;
+  closePremiumPlanModal(): void;
   openNewTransactionModal(type: 'INCOME' | 'EXPENSE'): void;
   closeNewTransactionModal(): void;
   openEditAccountModal(bankAccount: BankAccount): void;
@@ -29,6 +32,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [isNewAccountModalOpen, setIsNewAccountModalOpen] = useState(false);
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
   const [isNewCategoryModalOpen, setIsNewCategoryModalOpen] = useState(false);
+  const [isPremiumPlanModalOpen, setIsPremiumPlanModalOpen] = useState(false);
   const [newTransactionType, setNewTransactionType] = useState<'INCOME' | 'EXPENSE' | null>(null);
   const [isEditAccountModalOpen, setIsEditAccountModalOpen] = useState(false);
   const [accountBeingEdited, setAccountBeingEdited] = useState<null | BankAccount>(null);
@@ -51,6 +55,14 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
 
   const closeNewCategoryModal = useCallback(() => {
     setIsNewCategoryModalOpen(false)
+  }, []);
+
+  const openPremiumPlanModal = useCallback(() => {
+    setIsPremiumPlanModalOpen(true)
+  }, []);
+
+  const closePremiumPlanModal = useCallback(() => {
+    setIsPremiumPlanModalOpen(false)
   }, []);
 
   const openEditAccountModal = useCallback((bankAccount: BankAccount) => {
@@ -90,7 +102,10 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
       closeEditAccountModal,
       isNewCategoryModalOpen,
       openNewCategoryModal,
-      closeNewCategoryModal
+      closeNewCategoryModal,
+      isPremiumPlanModalOpen,
+      openPremiumPlanModal,
+      closePremiumPlanModal
     }}>
       {children}
     </DashboardContext.Provider>

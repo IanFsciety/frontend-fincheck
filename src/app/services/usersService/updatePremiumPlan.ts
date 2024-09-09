@@ -4,9 +4,9 @@ import { httpClient } from "../httpClient";
 type MeResponse = User;
 
 export async function update({
-  id
+  ...params
  }: MeResponse) {
-  const { data } = await httpClient.put(`/me`,);
+  const { data } = await httpClient.put<MeResponse>(`users/me`, params);
 
   return data;
 }

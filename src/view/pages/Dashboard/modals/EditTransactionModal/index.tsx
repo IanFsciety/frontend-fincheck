@@ -8,7 +8,6 @@ import { DatePickerInput } from "../../../../components/DatePickerInput";
 import { Input } from "../../../../components/Input";
 import { InputCurrency } from "../../../../components/InputCurrency";
 import { Select } from "../../../../components/Select";
-import { useDashboard } from "../../components/DashboardContext/useDashboard";
 import { Modal } from "../../components/Modal";
 import { useEditTransactionModalController } from "./useEditTransactionModalController";
 
@@ -38,7 +37,6 @@ export function EditTransactionModal({ transaction, onClose, open }: EditTransac
 
   const { user } = useAuth()
   const isUserPremium = user?.isPremium
-  const { openNewCategoryModal, isNewCategoryModalOpen } = useDashboard()
 
   if (isDeleteModalOpen) {
     return <ConfirmDeleteModal

@@ -4,11 +4,14 @@ import { MdOutlineWorkspacePremium } from "react-icons/md";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useAuth } from "../../app/hooks/useAuth";
+import { useDashboard } from "../pages/Dashboard/components/DashboardContext/useDashboard";
 import { DropdownMenu } from "./DropDownMenu";
 
 
 export function UserMenu() {
   const { signout, user}  = useAuth();
+
+  const { openPremiumPlanModal } = useDashboard();
 
 
   useEffect(() => {
@@ -36,7 +39,7 @@ export function UserMenu() {
 
           {!user?.isPremium && (
             <DropdownMenu.Item
-              // onSelect={signout}
+              onSelect={openPremiumPlanModal}
               className="flex items-center justify-between data-[highlighted]:text-teal-900 transition-colors"
             >
               Premium
