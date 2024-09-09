@@ -1,7 +1,6 @@
 import { TrashIcon } from "@radix-ui/react-icons";
 import { Controller } from "react-hook-form";
 import { Transaction } from "../../../../../app/entities/Transaction";
-import { useAuth } from "../../../../../app/hooks/useAuth";
 import { Button } from "../../../../components/Button";
 import { ConfirmDeleteModal } from "../../../../components/ConfirmDeleteModal";
 import { DatePickerInput } from "../../../../components/DatePickerInput";
@@ -34,9 +33,6 @@ export function EditTransactionModal({ transaction, onClose, open }: EditTransac
   } = useEditTransactionModalController(transaction, onClose);
 
   const isExpense = transaction?.type === 'EXPENSE';
-
-  const { user } = useAuth()
-  const isUserPremium = user?.isPremium
 
   if (isDeleteModalOpen) {
     return <ConfirmDeleteModal
