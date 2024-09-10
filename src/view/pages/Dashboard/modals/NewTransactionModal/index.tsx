@@ -100,12 +100,12 @@ export function NewTransactionModal() {
                   type="button"
                   disabled={!isUserPremium}
                   onClick={openNewCategoryModal}
-                  className="text-sm w-1/2 px-1 text-teal-900 hover:text-teal-700 disabled:text-gray-600 disabled:cursor-not-allowed"
+                  className="text-sm lg:w-1/2 px-1 text-teal-900 hover:text-teal-700 disabled:text-gray-600 disabled:cursor-not-allowed"
                 >
                   Crie uma nova Categoria
                 </button>
                 {!isUserPremium && (
-                  <button onClick={openPremiumPlanModal} type="button" className="text-sm text-teal-900 hover:text-teal-700">Torne-se Premium</button>
+                  <button onClick={openPremiumPlanModal} type="button" className="text-sm lg:w-1/2 text-teal-900 hover:text-teal-700">Torne-se Premium</button>
                 )}
 
               </div>
